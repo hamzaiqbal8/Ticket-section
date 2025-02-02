@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="ticket--generator-logo">
+          <div class="ticket--generator-logo-wrapper">
+            <img src="./images/logo-full.svg" alt="" />
+          </div>
+        </div>
+      </header>
+      <main>
+        <div class="ticket-generator-main-section">
+          <div class="ticket-generator-main-section-wrapper">
+            <div class="ticket-generator-main-heading">
+              <h2>
+                Your Journey to Coding Conf <br />
+                2025 start Here!
+              </h2>
+            </div>
+            <div class="ticket-generator-main-description">
+              <p>Secure your spot at next year,s biggest coding conferences</p>
+            </div>
+            <form action="" method="post">
+              <div class="ticket-generator-section">
+                <label for="user-avatar"> Upload Avatar</label>
+                <label for="user-avatar" class="upload">
+                  <div class="image-upload">
+                    <img src="./images/icon-upload.svg" alt="" />
+                    <p>Drag and drop or click to upload</p>
+                  </div>
+
+                  <div class="image-is-uploaded hidden">
+                    <img src="" alt="" />
+                  </div>
+                </label>
+                <input
+                  type="file"
+                  id="user-avatar"
+                  accept="image/png, image/jpeg, image/svg"
+                />
+                <div class="ticket-generater-description">
+                  <img src="./images/icon-info.svg" alt="" />
+                  <p>Upload your photo (JPG or PNG, max size: 500KB).</p>
+                </div>
+              </div>
+              <div class="ticket-generator-section">
+                <label for="name">Full Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  class="input"
+                  required
+                />
+              </div>
+              <div class="ticket-generator-section">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder=" example@email.com"
+                  class="input"
+                  required
+                />
+              </div>
+              <div class="ticket-generator-section">
+                <label for="username">GitHub Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Enter username"
+                  class="input"
+                  required
+                />
+              </div>
+              <div class="ticket-generator-confirmer">
+                <p id="error"></p>
+                <button class="btn" id="form-submit" type="submit">
+                  Generate My Ticket
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="ticket-section-final-result">
+          <div class="ticket-section-final-result-wrapper">
+            <div class="ticket-generator-ticket-ready-text">
+              <h2>Congrats, ${name} <br />Your ticket is ready.</h2>
+            </div>
+            <div class="ticket-generator-main">
+              <p style="line-height: 1.4">
+                We,re emailed your ticket to <br /><span>${email}</span> <br />
+                and will send the updates in the run to the event
+              </p>
+            </div>
+            <div class="ticket">
+              <div class="ticket-wrapper">
+              <div class="ticket-left-side">
+                <div class="logo-ticket">
+                  <img src="./images/logo-full.svg" alt="" />
+                  <p>Feb 1 , 2005 / Austin,TX</p>
+                </div>
+                <div class="ticket-user-info">
+                  <div class="ticket-user-info-wrapper">
+               
+                    <div class="user-image-profile">
+                      <img src="./images/background-desktop.png" alt="">
+                    </div>
+                    <div class="user-info">
+                      <span>Hamza Iqbal</span>
+                   <div class="github-logo">
+                    <img src="./images/icon-github.svg" alt="">
+                    <p>hamzaiqbal8</p>
+                   </div>
+                    </div>
+                 
+                 
+                  </div>
+                </div>
+              </div>
+              <div class="ticket-right-side">
+                <h2>4345</h2>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script>
+      let nameInput = document.querySelector("#name");
+      let emailInput = document.querySelector("#email");
+      let usernameInput = document.querySelector("#username");
+      let userAvatarFileInput = document.querySelector("#user-avatar");
+      let formSubmitBtn = document.querySelector("button#form-submit");
+
+      let uploadAvatarImageEl = document.querySelector(".image-upload");
+      let uploadedAvatarImageEl = document.querySelector(".image-is-uploaded");
+
+      let formSectionEl = document.querySelector('.ticket-generator-main-section')
+      let ticketSectionEl = document.querySelector('.ticket-section-final-result')
+
+      let ticketGeneratorHeadingEl = document.querySelector('.ticket-generator-ticket-ready-text')
+      let ticketGeneratorTextEl = document.querySelector('.ticket-generator-main')
+
+      formSubmitBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        validateForm();
+
+        if (validateForm) {
+          createTicket()
+        }
+      });
+
+      userAvatarFileInput.addEventListener("input", () => {
+        validateAvatar();
+      });
+
+      function validateForm() {
+        if (nameInput.value == "") {
+          window.alert("Please enter 'Name'");
+          return false;
+        }
+        if (emailInput.value == "") {
+          window.alert("Please enter 'Email'");
+          return false;
+        }
+        if (usernameInput.value == "") {
+          window.alert("Please enter 'Username'");
+          return false;
+        }
+        if (!validateAvatar) {
+          return false;
+        }
+
+      }
+      
+      function validateAvatar() {
+        if (userAvatarFileInput.value == "") {
+          window.alert("Please upload 'Image/Avatar'");
+          uploadAvatarImageEl.style.display = "block";
+          uploadedAvatarImageEl.style.display = "none";
+          return false;
+        } else {
+          uploadAvatarImageEl.style.display = "none";
+          uploadedAvatarImageEl.style.display = "block";
+
+          let file = userAvatarFileInput.files[0]
+          const imgElement = uploadedAvatarImageEl.querySelector("img");
+
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              imgElement.src = e.target.result; 
+              imgElement.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+            return true;
+          } else {
+            imgElement.src = ''; 
+            imgElement.style.display = 'none'
+          }
+        }
+        return false;
+      }
+      // createTicket()
+      function createTicket() {
+        let name = nameInput.value
+        let email = emailInput.value
+        let username= usernameInput
+        let avatar = userAvatarFileInput
+
+        let today = new Date();
+        today.setDate(today.getDate() + 20);
+        let futureDate = today.toLocaleDateString('en-UK', {});
+
+        let tickerNumber = Math.floor(+Math.random() * 1000000)
+
+        let venueLocation = 'Austin TX'
+
+        const imgElement = uploadedAvatarImageEl.querySelector("img");
+        console.log(imgElement.src);
+
+
+        ticketGeneratorHeadingEl.innerHTML = `<h2>Congrats, <span> ${name} </span> <br />Your ticket is ready.</h2>`
+        ticketGeneratorTextEl.innerHTML =  `<p class="email-confirm-text">
+                We,re emailed your ticket to <br /><span> ${email} </span> <br/>
+                and will send the updates in the run to the event
+              </p>`
+
+
+        formSectionEl.style.display = 'none'
+        ticketSectionEl.style.display = 'block'
+      }
+
+      // let btn = document.querySelector(".btn");
+      // let ticketFrom = document.querySelector(".ticket-generator-main-section");
+      // let ticket = document.querySelector(".ticket-section-final-result");
+
+      // btn.addEventListener("click", () => {
+      //   ticketFrom.classList.add("remove");
+      //   ticket.classList.add("active");
+      //   // let name = document.getElementById("name").value;
+      //   // let email = document.getElementById("email").value;
+      //   // let github = document.getElementById("username").value;
+      //   // let photo = document.getElementById("load").files[0];
+      // });
+
+      // let reader = new FileReader();
+      // reader.onload = () => {
+      //   let  photoBase64 = reader.result;
+      //   ticket.innerHTML =
+      //     document.getElementById(
+      //       "ticket-generator-main-heading"
+      //     ).innerHTML = `
+      //        <h2>
+      //           Congrats, ${name} <br />
+      //           Your ticket is ready.
+      //         </h2>
+      //     `;
+
+      //     document.getElementById(
+      //       ".ticket-generator-main-description"
+      //     ).innerHTML = `
+      //       <p style="line-height: 1.4">
+      //           We,re emailed your ticket to <br/><span>${email}</span> <br />
+      //           and will send the updates in the run to the event
+      //         </p>
+      //     `;
+
+      // })
+    </script>
+  </body>
+</html>
